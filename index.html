@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Two Input One Output</title>
+    <style>
+    body {
+            background-color: black;
+            color: white; 
+            text-align: center;
+        }
+
+    .container {
+            display: flex;
+            justify-content: center;
+        }
+
+    #submitButton {
+            cursor: pointer;
+            font-family: "Poppins", serif;
+            font-weight: 100;
+            font-style: normal;
+            font-size: 3rem; 
+            background: black; 
+            color: white;
+            border: none;
+            position: absolute;
+            top: 86%; 
+            left: 48%; 
+            border-radius: 10px;
+            text-align: center; 
+        }
+      
+    #imageContainer {
+        height: 100vh;
+        width: 45vw;
+        position: absolute;
+        left: 0%;
+        top:0%;
+        margin: none; 
+      }  
+      
+    #displayedImage {
+            display: none;
+            max-width: 100%;
+            height: 100%; 
+        }
+
+    .scroll-menu {
+            overflow-y: scroll;
+            border: none;
+            padding: 10px; 
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-top: 1vh; 
+            font-family: "Poppins", serif;
+            font-weight: 100;
+            font-style: normal;
+            color: #4D4D4D;
+        }
+        
+    .scroll-menu div {
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 6rem; 
+        }
+
+    .scroll-menu div:hover {
+            color:white; 
+            font-weight: 250;
+            border: 1px white solid; 
+        }
+      
+    .scroll-menu::-webkit-scrollbar {
+            display: none; 
+        }
+
+    .selected {
+            /*background-color: white;
+            color: black;*/
+            font-weight: 250;
+            border: 1px white solid;
+            color: white; 
+        }
+      
+    #consonantMenu {
+        position: absolute; 
+        left: 80%; 
+        top: 8%;
+        border-bottom: 1px white solid;
+        border-top: 1px white solid;
+        width: 8vw;
+        height: 83vh; 
+      }
+  
+    #vowelMenu {
+        position: absolute;
+        left: 68%;
+        top: 1%;
+        overflow: hidden;
+        width: 8vw;
+        height: 96vh; 
+      }
+      
+    #title{
+        font-family: "Montserrat", sans-serif; 
+        font-weight: 250;
+        font-style: normal;
+        font-size: 7rem; 
+        position: absolute;
+        left:2%;
+        top:0%;
+        padding:none;
+        line-height: 10%;
+        text-align: left; 
+        z-index: 200; 
+        }
+
+    @media screen and (max-width: 1000px) {
+        body {
+            font-size: 16px;  /* Adjust font size for mobile */
+        }
+
+        .container {
+            display: block;
+            position: relative;
+        }
+
+        #imageContainer {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            width: 60vw;  /* Adjust width for mobile */
+            height: 60vh; 
+        }
+
+        #displayedImage {
+            max-width: 100%;
+            height: 100%;
+        }
+
+        #title {
+            position: absolute;
+            top: 75%;
+            left: 7%;
+            font-size: 3rem;  /* Adjust font size for mobile */
+            line-height: 0.5;
+            text-align: left;
+        }
+
+        #vowelMenu, #consonantMenu {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10vw;
+            height: 60vh;
+            display: flex;
+            flex-direction: column; 
+            margin: none;
+    }
+
+    #vowelMenu{
+        left: 65%;
+        top: -5%;  
+    }
+        .scroll-menu {
+            padding: 10px;
+        }
+
+        .scroll-menu div {
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 3rem;
+            z-index: 200; 
+        }
+    }
+
+
+    </style>
+</head>
+<body>
+
+    <!-- <h1 class="title">Collection of Furnitures</h1> -->
+
+    <!-- Container for scrollable menus -->
+    <div class="container">
+        <!-- Vowel Selection -->
+        <div>
+            <!--<h3>Vowels (Color)</h3>-->
+            <div class="scroll-menu" id="vowelMenu">
+                <div onclick="selectLetter(this, 'vowel')">A</div>
+                <div onclick="selectLetter(this, 'vowel')">E</div>
+                <div onclick="selectLetter(this, 'vowel')">I</div>
+                <div onclick="selectLetter(this, 'vowel')">O</div>
+                <div onclick="selectLetter(this, 'vowel')">U</div>
+            </div>
+        </div>
+
+        <!-- Consonant Selection -->
+        <div>
+            <!--<h3>Consonants (Furniture)</h3>-->
+            <div class="scroll-menu" id="consonantMenu">
+                <div onclick="selectLetter(this, 'consonant')">B</div>
+                <div onclick="selectLetter(this, 'consonant')">C</div>
+                <div onclick="selectLetter(this, 'consonant')">D</div>
+                <div onclick="selectLetter(this, 'consonant')">F</div>
+                <div onclick="selectLetter(this, 'consonant')">G</div>
+                <div onclick="selectLetter(this, 'consonant')">H</div>
+                <div onclick="selectLetter(this, 'consonant')">J</div>
+                <div onclick="selectLetter(this, 'consonant')">K</div>
+                <div onclick="selectLetter(this, 'consonant')">L</div>
+                <div onclick="selectLetter(this, 'consonant')">M</div>
+                <div onclick="selectLetter(this, 'consonant')">N</div>
+                <div onclick="selectLetter(this, 'consonant')">P</div>
+                <div onclick="selectLetter(this, 'consonant')">Q</div>
+                <div onclick="selectLetter(this, 'consonant')">R</div>
+                <div onclick="selectLetter(this, 'consonant')">S</div>
+                <div onclick="selectLetter(this, 'consonant')">T</div>
+                <div onclick="selectLetter(this, 'consonant')">V</div>
+                <div onclick="selectLetter(this, 'consonant')">W</div>
+                <div onclick="selectLetter(this, 'consonant')">X</div>
+                <div onclick="selectLetter(this, 'consonant')">Y</div>
+                <div onclick="selectLetter(this, 'consonant')">Z</div>
+            </div>
+        </div>
+    </div>
+    <div id="title">
+        <p id="mainTitle">Collection of</p>
+        <p id="dynamicTitle">Furniture</p>
+    </div>
+    <div id = "imageContainer">
+      <img id="displayedImage" src="" alt="Displayed Furniture">
+    </div>
+
+    <script>
+        let selectedVowel = null;
+        let selectedConsonant = null;
+
+        // Mapping for vowels to colors
+        const vowelToColor = {
+        "A": "Red",
+        "E": "Yellow",
+        "I": "White",
+        "O": "Brown",
+        "U": "Blue"
+        };
+
+        // Mapping for consonants to furniture
+        const consonantToFurniture = {
+        "B": "Bookshelf",
+        "C": "Chair",
+        "D": "Desk",
+        "F": "Footrest",
+        "G": "Gateleg Table",
+        "H": "Highchair",
+        "J": "Jewelry Box",
+        "K": "Knife Holder",
+        "L": "Lamp",
+        "M": "Mirror",
+        "N": "Nightstand",
+        "P": "Pedestal Table",
+        "Q": "Quilt",
+        "R": "Rocking Chair",
+        "S": "Sofa",
+        "T": "Table",
+        "V": "Vinyl Chair",
+        "W": "Wardrobe",
+        "X": "X-Stool",
+        "Y": "Yoga Chair",
+        "Z": "Zaisu Chair"
+        };
+
+        function displayImage() {
+        const imgElement = document.getElementById("displayedImage");
+
+        // Mapping of vowel + consonant to images
+        const imageMap = {
+        "A-B": "AB.png", "E-B": "EB.png", "I-B": "IB.png", "O-B": "OB.png", "U-B": "UB.png",
+        "A-C": "AC.png", "E-C": "EC.png", "I-C": "IC.png", "O-C": "OC.png", "U-C": "UC.png",
+        "A-D": "AD.png", "E-D": "ED.png", "I-D": "ID.png", "O-D": "OD.png", "U-D": "UD.png",
+        "A-F": "AF.png", "E-F": "EF.png", "I-F": "IF.png", "O-F": "OF.png", "U-F": "UF.png",
+        "A-G": "AG.png", "E-G": "EG.png", "I-G": "IG.png", "O-G": "OG.png", "U-G": "UG.png",
+        "A-H": "AH.png", "E-H": "EH.png", "I-H": "IH.png", "O-H": "OH.png", "U-H": "UH.png",
+        "A-J": "AJ.png", "E-J": "EJ.png", "I-J": "IJ.png", "O-J": "OJ.png", "U-J": "UJ.png",
+        "A-K": "AK.png", "E-K": "EK.png", "I-K": "IK.png", "O-K": "OK.png", "U-K": "UK.png",
+        "A-L": "AL.png", "E-L": "EL.png", "I-L": "IL.png", "O-L": "OL.png", "U-L": "UL.png",
+        "A-M": "AM.png", "E-M": "EM.png", "I-M": "IM.png", "O-M": "OM.png", "U-M": "UM.png",
+        "A-N": "AN.png", "E-N": "EN.png", "I-N": "IN.png", "O-N": "ON.png", "U-N": "UN.png",
+        "A-P": "AP.png", "E-P": "EP.png", "I-P": "IP.png", "O-P": "OP.png", "U-P": "UP.png",
+        "A-Q": "AQ.png", "E-Q": "EQ.png", "I-Q": "IQ.png", "O-Q": "OQ.png", "U-Q": "UQ.png",
+        "A-R": "AR.png", "E-R": "ER.png", "I-R": "IR.png", "O-R": "OR.png", "U-R": "UR.png",
+        "A-S": "AS.png", "E-S": "ES.png", "I-S": "IS.png", "O-S": "OS.png", "U-S": "US.png",
+        "A-T": "AT.png", "E-T": "ET.png", "I-T": "IT.png", "O-T": "OT.png", "U-T": "UT.png",
+        "A-V": "AV.png", "E-V": "EV.png", "I-V": "IV.png", "O-V": "OV.png", "U-V": "UV.png",
+        "A-W": "AW.png", "E-W": "EW.png", "I-W": "IW.png", "O-W": "OW.png", "U-W": "UW.png",
+        "A-X": "AX.png", "E-X": "EX.png", "I-X": "IX.png", "O-X": "OX.png", "U-X": "UX.png",
+        "A-Y": "AY.png", "E-Y": "EY.png", "I-Y": "IY.png", "O-Y": "OY.png", "U-Y": "UY.png",
+        "A-Z": "AZ.png", "E-Z": "EZ.png", "I-Z": "IZ.png", "O-Z": "OZ.png", "U-Z": "UZ.png",
+    };
+
+    // Find the correct image path
+    const selectedImage = imageMap[`${selectedVowel}-${selectedConsonant}`];
+
+    if (selectedImage) {
+        imgElement.src = selectedImage;
+        imgElement.style.display = "block";
+    } else {
+        imgElement.style.display = "none";
+    }
+}
+
+window.onload = function() {
+    const consonantMenu = document.getElementById("consonantMenu");
+    consonantMenu.scrollTop = 40;
+};
+
+function selectLetter(element, type) {
+    const menu = type === 'vowel' ? "vowelMenu" : "consonantMenu";
+
+    // Remove selection from all options in the menu
+    document.getElementById(menu).querySelectorAll("div").forEach(div => {
+        div.classList.remove("selected");
+    });
+
+    // Highlight the selected letter
+    element.classList.add("selected");
+
+    // Store the selected vowel or consonant
+    if (type === "vowel") {
+        selectedVowel = element.innerText;
+    } else {
+        selectedConsonant = element.innerText;
+    }
+
+    // Update the title when a selection is made
+    updateTitle();
+}
+
+function updateTitle() {
+    if (selectedVowel && selectedConsonant) {
+        // Get the corresponding color and furniture
+        const color = vowelToColor[selectedVowel];
+        const furniture = consonantToFurniture[selectedConsonant];
+
+        // Update the mainTitle and dynamicTitle with color and furniture
+        document.getElementById("mainTitle").innerText = color;  // For the vowel (color)
+        document.getElementById("dynamicTitle").innerText = furniture;  // For the consonant (furniture)
+    }
+}
+
+function selectLetter(element, type) {
+    const menu = type === 'vowel' ? "vowelMenu" : "consonantMenu";
+
+    // Remove selection from all options in the menu
+    document.getElementById(menu).querySelectorAll("div").forEach(div => {
+        div.classList.remove("selected");
+    });
+
+    // Highlight the selected letter
+    element.classList.add("selected");
+
+    // Store the selected vowel or consonant
+    if (type === "vowel") {
+        selectedVowel = element.innerText;
+    } else {
+        selectedConsonant = element.innerText;
+    }
+
+    // Update the title when a selection is made
+    updateTitle();
+
+    // Ensure image is displayed if both a vowel and consonant are selected
+    if (selectedVowel && selectedConsonant) {
+        displayImage();
+    }
+}
+
+    </script>
+
+</body>
+</html>
